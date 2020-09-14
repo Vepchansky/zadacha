@@ -21,27 +21,24 @@ def addvar(parent, vari, namesp):
                     if key == parent: sp[key].append(vari)
                     else: addvar(parent, vari, sp[key]) 
 
-def getvar(parent, vari, namesp, papa = None):
-    if not bool(namesp): return papa
-    else:
-        for sp in namesp:
-            if type(sp) == type({}):
-                for key in sp:
-                    if key == parent:
-                        for var in sp[key]:
-                            if var == vari:
-                                papa = key
-                        return papa
-                    else:
-                        papr = getvar(parent, vari, sp[key], key)
-                        if papr != None:
-                            papa = papr
-                        return papa
-        for sp in namesp:
-            if sp == vari and papa == None: 
-                return papa
-            else:
-                papa = None
+def getvar(parent, vari, namesp, papa):
+    for sp in namesp:
+        if type(sp) == type({}):
+            for key in sp:
+                if key != parent:
+                    papr = getvar(parent, vari, sp[key], key)
+                    if papr != None:
+                        papa = papr
+                else:
+                    for i in sp[key]:
+                        if i == vari:
+                            papa = parent
+                    return papa
+        else:
+            if sp == vari:
+                pass
+            else: papa = None
+    return papa
               
 
 for i in range(n):
@@ -53,3 +50,4 @@ for i in range(n):
         papa = getvar(namesp, variab, g, papa)
         print(papa)
     else: print('Недопустимый ввод')
+    print(g)
