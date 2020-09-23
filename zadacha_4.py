@@ -6,14 +6,15 @@ answer = False
 def search_parent(parent, child):
     global answer
     answer = False
-    if parent == child: answer = True
-    else:
-        for row in g:
-            if row[0] == child:
-                for count in row:
-                    if count == parent: answer = True 
-                    elif count != ":" and count != child:
-                        search_parent(parent, count)
+    if parent != ":" and child != ":":
+        if parent == child: answer = True
+        else:
+            for row in g:
+                if row[0] == child:
+                    for count in row:
+                        if count == parent: answer = True 
+                        elif count != ":" and count != child:
+                            search_parent(parent, count)
 
 
 while n > 0:
@@ -25,12 +26,12 @@ n = int(input())
 
 while n > 0:
     child = input()
-    order.append()
+    order.append(child)
     n -= 1
 
 for i in range(len(order)):
     for j in range(len(order)):
         if j > i:
             search_parent(order[i], order[j])
-            if answer == True:
+            if answer: 
                 print(order[j])
