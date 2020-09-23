@@ -5,6 +5,7 @@ answer = False
 
 def search_parent(parent, child):
     global answer
+    answer = False
     if parent == child: answer = True
     else:
         for row in g:
@@ -24,12 +25,12 @@ n = int(input())
 
 while n > 0:
     child = input()
-    for error in order:
-        search_parent(error, child)
-    if answer:
-        order.append(child)
+    order.append()
     n -= 1
 
-for error in order:
-    print(error)
-
+for i in range(len(order)):
+    for j in range(len(order)):
+        if j > i:
+            search_parent(order[i], order[j])
+            if answer == True:
+                print(order[j])
